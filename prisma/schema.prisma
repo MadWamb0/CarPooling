@@ -1,0 +1,116 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "sqlite"
+    url      = env("DATABASE_URL")
+}
+
+model Session {
+  id        String   @id
+  userId    String
+  expiresAt DateTime
+  user      User     @relation(references: [id], fields: [userId], onDelete: Cascade)
+}
+
+model User{
+    id String @id 
+    nome String?
+    cognome String?
+    numero String? @unique  
+    email String @unique
+    password String
+    
+
+    idcard String? @unique
+    passeggero Passeggero? @relation (fields: [idcard],references: [idcard])
+
+    idAutista Int? @unique
+    autista Autista? @relation(fields: [idAutista],references: [id])
+    feedback Feedback[]
+    
+    session Session[]
+}
+
+model Passeggero{
+    
+    idcard String @unique @id
+
+    prenotazioni Prenotazioni[]
+    
+    user User? 
+}
+
+model Autista{
+    id Int @id @default(autoincrement())
+    foto String
+
+    numeroPatente String @unique 
+    patente Patente @relation(fields: [numeroPatente],references: [numero])
+
+    prenotazioni Prenotazioni[]
+
+    veicolo Veicolo[]
+
+    viaggio Viaggio[]
+
+    user User?
+}
+
+model Patente{
+    numero String @unique @id
+    scadenza String 
+
+    autista Autista? 
+}
+
+model Veicolo{
+    targa String @unique @id
+    produttore String
+    posti Int
+    idAutista Int @unique
+
+    autista Autista? @relation(fields: [idAutista],references: [id]) 
+}
+
+model Viaggio{
+    id Int @id @default(autoincrement())
+    Partenza String
+    Destinazione String
+    dataPartenza String
+    contributo Decimal
+    tempoPercorrenza String
+    postiDisponibili Int
+
+    prenotazioni Prenotazioni[]
+
+    idAutista Int 
+    autista Autista @relation(fields: [idAutista],references: [id])
+}
+
+model Feedback{
+    id Int @id @default(autoincrement())
+    voto Int
+    commento String
+    
+    idUtente String 
+    user User @relation(fields: [idUtente],references: [id])
+}
+
+model Prenotazioni{
+    id Int @id @default(autoincrement())
+    stato String
+
+    idPasseggero String
+    passeggero Passeggero @relation(fields: [idPasseggero],references: [idcard])
+
+    idViaggio Int
+    viaggio Viaggio @relation(fields: [idViaggio],references: [id])
+
+    idAutista Int
+    autista Autista @relation(fields: [idAutista],references: [id])
+}
