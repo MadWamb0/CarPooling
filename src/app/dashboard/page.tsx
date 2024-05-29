@@ -6,6 +6,7 @@ import ottieniPrenotazioni from "~/server/ottieniPrenotazioni";
 import { ottieniViaggi } from "~/server/ottieniViaggi";
 import prenota from "~/server/prenota";
 import { validateRequest } from "~/server/validateRequest";
+import "./styletable.css"
 
 export default async function dashboard(){
     const { user } = await validateRequest();
@@ -18,8 +19,8 @@ export default async function dashboard(){
     console.log(data)
     
     return (
-        <div>
-            <table border={1} >
+        <div className="dashboard-container">
+            <table border={1} className="styled-table">
                 <tbody>
                     <tr>
                         <th>
@@ -54,7 +55,7 @@ export default async function dashboard(){
                                         <input type="text" name="idPasseggero" readOnly defaultValue={d.idPasseggero} hidden/>
                                         <input type="text" name="idPrenotazione" readOnly defaultValue={d.id} hidden/>
                                         <input type="text" name="idAutista" readOnly defaultValue={d.idAutista} hidden/>
-                                        <button>Aggiorna</button>    
+                                        <button className="button">Aggiorna</button>    
                                     </form>
                                 </td>
                             </tr>
@@ -75,7 +76,7 @@ export default async function dashboard(){
                                         <input type="text" name="idPasseggero" defaultValue={user!.idcard as string} hidden/>
                                         <input type="text" name="idViaggio" defaultValue={d.id} hidden/>
                                         <input type="text" name="idAutista" defaultValue={d.autista.id} hidden/>
-                                        <button>Prenota un posto</button>    
+                                        <button className="button">Prenota un posto</button>    
                                     </form>  
                                 </td>
                             </tr>

@@ -1,11 +1,12 @@
 "use client"
 import { useState } from "react";
 import { login } from "~/server/login";
+import "./style.css"
 
 export default function Page() {
     const [form,setform]=useState<{username: string,password: string}>({username:"",password:""})
 	return (
-		<>
+		<div className="container">
 			<h1>Sign in</h1>
 				<label htmlFor="username">Username</label>
 				<input name="username" id="username" onChange={(e )=>{
@@ -17,10 +18,10 @@ export default function Page() {
                     setform(f=>({...f,password:e.target.value}))
                 }}/>
 				<br />
-				<button onClick={async()=>{
+				<button className="bordi" onClick={async()=>{
                     await login(form.username,form.password)
                 }}>Continue</button>
-		</>
+		</div>
 	);
 }
 

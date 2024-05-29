@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import { db } from "~/server/db"
 import { validateRequest } from "~/server/validateRequest";
-
+import "./style.css"
 
 const citta=[
     "Roma",
@@ -65,17 +65,17 @@ export default async function NuovoViaggio(){
     })
 
     return(
-        <div>
+        <div className="form-container">
             <h1>Nuovo Viaggio</h1>
             <p>Inserisci i dati del viaggio</p>
-            <form action={creaViaggio}>
-                <select required name="partenza">
+            <form action={creaViaggio} className="styled-form">
+                <select required name="partenza" className="styled-select">
                     <option disabled defaultValue>
                         Seleziona la città di partenza
                     </option>
                     {citta.map((citta,k)=><option value={citta} key={k}>{citta}</option>)}
                 </select>
-                <select required name="destinazione">
+                <select required name="destinazione" className="styled-select">
                     <option disabled defaultValue>
                         Seleziona la città di destinazione
                     </option>
@@ -83,7 +83,7 @@ export default async function NuovoViaggio(){
                     {citta.map((citta,k)=><option value={citta} key={k}>{citta}</option>)}
 
                 </select>
-                <select name="veicoloselezionato">
+                <select name="veicoloselezionato" className="styled-select">
                     <option disabled defaultValue>
                         Seleziona un veicolo 
                     </option>
@@ -91,12 +91,12 @@ export default async function NuovoViaggio(){
                     {veicoli.map((veicolo, k)=><option value={veicolo.targa} key={k}>{veicolo.produttore}</option>)}
 
                 </select>
-                <input required name="tempo" type="time" placeholder="Tempo Percorrenza"></input>
-                <input required name="orapartenza" type="time" placeholder="Orario di partenza"></input>
-                <input required name="datapartenza" type="date" placeholder="Data"></input>
-                <input required name="prezzo" type="number" placeholder="Prezzo"></input>
+                <input required name="tempo" type="time" placeholder="Tempo Percorrenza" className="styled-input"></input>
+                <input required name="orapartenza" type="time" placeholder="Orario di partenza" className="styled-input"></input>
+                <input required name="datapartenza" type="date" placeholder="Data" className="styled-input"></input>
+                <input required name="prezzo" type="number" placeholder="Prezzo" className="styled-input"></input>
                 
-                <button type="submit">Invia</button>
+                <button type="submit" className="styled-button">Invia</button>
             </form>
         </div>
     )

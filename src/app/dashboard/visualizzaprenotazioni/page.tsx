@@ -2,9 +2,10 @@
 import { redirect } from "next/navigation";
 import { db } from "~/server/db";
 import { validateRequest } from "~/server/validateRequest";
-import "./giglo.css"
+import "./style.css"
 import { Rating } from "react-simple-star-rating";
 import Star from "~/app/component/Star";
+
 
 export default async function VisualizzaPrenotazioni(){
 
@@ -61,9 +62,9 @@ export default async function VisualizzaPrenotazioni(){
     
     console.log(feedbacks)
     return(
-        <>
+        <div className="prenotazioni-container">
             <h1>Visualizza prenotazioni</h1>
-            <table>
+            <table className="styled-table">
                 <tbody>
                     <tr>
                         <th>IDAutista</th>
@@ -106,6 +107,6 @@ export default async function VisualizzaPrenotazioni(){
                         }
                 </tbody>
             </table>
-        </>
+        </div>
     ) 
 }

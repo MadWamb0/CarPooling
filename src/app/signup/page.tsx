@@ -1,36 +1,38 @@
 "use client"
 import { useState } from "react";
 import { Form, signup } from "~/server/signup";
+import "./style.css"
 
 export default function Page() {
     
     const [form,setform]=useState<Form>({username:"",password:"",ruolo:{},nome:"",cognome:"",numero:""})
 	const [tipoUtente,setUtente]=useState<"passeggero"|"autista">()
 	return (
-		<>
-			<h1>Create an account</h1>
+		<div className="container">
+			<h1>Crea un account</h1>
 				<input type="text" name="nome" placeholder="Nome" onChange={(e )=>{
                     setform(f=>({...f,nome:e.target.value}))
                 }}/>
+				<br />
 				<input type="text" name="cognome" placeholder="Cognome" onChange={(e )=>{
                     setform(f=>({...f,cognome:e.target.value}))
                 }}/>
+				<br />
 				<input type="text" name="numero" placeholder="Numero di telefono" onChange={(e )=>{
                     setform(f=>({...f,numero:e.target.value}))
                 }}/>
-				<label htmlFor="username">Username</label>
-				<input required name="username" id="username" onChange={(e )=>{
+				<br />
+				<input required name="username" placeholder="Username" id="username" onChange={(e )=>{
                     setform(f=>({...f,username:e.target.value}))
                     
                 }}/>
 				<br />
-				<label htmlFor="password">Password</label>
-				<input required type="password" name="password" id="password" onChange={(e )=>{
+				<input required type="password" placeholder="Password" name="password" id="password" onChange={(e )=>{
                     setform(f=>({...f,password:e.target.value}))
                 }}/>
 
 				<br />
-				<select required name="tipoUtente" onChange={(e )=>{
+				<select required className="bordi" name="tipoUtente" onChange={(e )=>{
 					setUtente(e.target.value as "passeggero"|"autista")
 					console.log(e.target.value)
 				}}>
@@ -63,11 +65,12 @@ export default function Page() {
 						
 					)
 				}
-				<button onClick={async()=>{
+				<br />
+				<button className="bordi" onClick={async()=>{
                     await signup(form)
                 }}>Continue</button>
 			
-		</>
+		</div>
 	);
 }
 
